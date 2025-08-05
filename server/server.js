@@ -3,11 +3,12 @@ import cors from "cors";
 import { configDotenv } from "dotenv";
 import cookieParser from "cookie-parser";
 
+configDotenv();
+
 import ConnectDB from "./config/monogodb.js";
 import authRouter from './routes/authRoutes.js'
 
 
-configDotenv();
 
 const app = express();
 const port = process.env.PORT || 5000;
