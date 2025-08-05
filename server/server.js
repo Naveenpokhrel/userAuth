@@ -3,7 +3,7 @@ import cors from "cors";
 import { configDotenv } from "dotenv";
 import cookieParser from "cookie-parser";
 
-import ConnectDB from './config/monogodb.js';
+import ConnectDB from "./config/monogodb.js";
 import authRouter from './routes/authRoutes.js'
 
 

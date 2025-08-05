@@ -39,15 +39,17 @@ export const register = async (req, res) => {
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
       to: email,
-      subject: "Welcome to Nabin projects",
-      text: "Welcome to my backend project. Your Account has been created with email id: ${email}",
-    };
+      subject: "Welcome to projects",
+      text: 'Welcome to my backend project. Your Account has been created with email id: ${email}'
+    }
 
     await transporter.sendMail(mailOptions);
 
     return res.json({ success: true });
+
+    
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    res.json({ success: false, message: error.message })
   }
 };
 
