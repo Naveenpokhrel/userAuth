@@ -40,9 +40,10 @@ export const register = async (req, res) => {
       subject: "Welcome to projects",
       text: `Welcome to my backend project. Your Account has been created with email id: ${email}`,
     };
-    console.log("Sending email to:", mailOptions);
-    const sendEmail = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", sendEmail);
+    // console.log("Sending email to:", mailOptions);
+    // const sendEmail = await transporter.sendMail(mailOptions);
+    // console.log("Email sent:", sendEmail);
+    await transporter.sendMail(mailOptions);
     
     return res.json({ success: true });
   } catch (error) {
