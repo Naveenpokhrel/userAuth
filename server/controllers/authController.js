@@ -106,7 +106,6 @@ export const logout = async (_req, res) => {
 };
 
 // Send Verification OTP to the User's Email
-// Send Verification OTP to the User's Email
 export const sendVerifyOtp = async (req, res) => {
   try {
     const { email } = req.body;
@@ -130,10 +129,10 @@ export const sendVerifyOtp = async (req, res) => {
 
     user.verifyOtp = otp;
     user.verifyOtpExpireAt = Date.now() + 20 * 60 * 1000; // 20 minutes
-    console.log("ottttttp", user.VerifyOtp)
+    console.log("ottttttp", user.VerifyOtp);
 
     await user.save();
-    console.log("helllooooo", user)
+    console.log("helllooooo", user);
 
     console.log("OTP generated:", otp);
 
@@ -163,15 +162,17 @@ export const verifyEmail = async (req, res) => {
 
     const user = await userModel.findOne({ email });
 
-
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
 
     // Check OTP exists
     if (!user.verifyOtp) {
-      console.log("sfsdf", user)
-      return res.json({ success: false, message: "No OTP found. Please request again" });
+      console.log("sfsdf", user);
+      return res.json({
+        success: false,
+        message: "No OTP found. Please request again",
+      });
     }
 
     // Check expiry
@@ -196,3 +197,18 @@ export const verifyEmail = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+// authenicated
+export const isAuthenticated = async (req, res) => {
+  try {
+    return res.json({
+      success: true,
+      email: req.email, // ✅ comes from middleware
+      message: "User is authenticated",
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+
