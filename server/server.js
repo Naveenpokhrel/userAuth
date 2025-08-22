@@ -7,6 +7,7 @@ configDotenv();
 
 import ConnectDB from "./config/monogodb.js";
 import authRouter from './routes/authRoutes.js'
+import userRouter from "./routes/userRoutes.js";
 
 
 
@@ -23,6 +24,7 @@ app.use(cors({ credentials: true }));
 // API ENDPoints
 app.get('/', (req, res) => res.send("API Working"));
 app.use('/api/auth', authRouter )
+app.use('/api/user', userRouter )
 
 
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
