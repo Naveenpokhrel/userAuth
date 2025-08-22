@@ -248,7 +248,7 @@ if(!user){
 
     await transporter.sendMail(mailOptions);
    
-    return res.json({success:true, message: 'OTP sent to your email' });
+    return res.json({success: true, message: 'OTP sent to your email' });
 
 }catch (error) {
 
@@ -288,7 +288,7 @@ export const resetPassword = async (req, res)=>{
 
      await user.save();
 
-     return res.json({ success: false, message: 'Password has been reset successfully'});
+     return res.json({ success: true, message: 'Password has been reset successfully'});
 
   } catch (error) {
     return res.json({ success: false, message: error.message });
