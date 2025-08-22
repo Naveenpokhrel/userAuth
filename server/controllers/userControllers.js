@@ -1,28 +1,34 @@
-import userModel from "../models/userModel";
+import jwt from "jsonwebtoken";
+import userModel from "../models/userModel.js";
 
-export const getUserData = async(req, res)=>{
-    try{
+export const getUserData = async (req, res) => {
+  try {
+    // get token from cookies
+    const token = req.cookies.token;
+    if (!token) {
+      return res.json({ success: false, message: "No token provided" });
+    }
 
-        const {userId} = req.body;
+    // decode token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
 
-        const user = await userModel.findById(userId);
+    // fetch user from DB
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
 
-        if(!user){
-
-            return res.json({ success: false, message: 'User not found' });
-
-        }
-
-  res.json({
-    success: true,
-    userData: {
+    // send user data
+    res.json({
+      success: true,
+      userData: {
         name: user.name,
-        isAccountVerified: user.isAccountVerified
-    }
-    
-  });
-
-    } catch (error) {
-        res.json({ success: false, message: error.message});
-    }
-} 
+        email: user.email,
+        isAccountVerified: user.isAccountVerified,
+      },
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
