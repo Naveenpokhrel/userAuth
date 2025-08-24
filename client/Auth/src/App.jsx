@@ -1,12 +1,12 @@
 import React from 'react'
-import Routes from "./pages/Routes/pages.jsx";
+import AppRoutes from "./pages/Routes/pages.jsx";
+
 const App = () => {
   return (
     <>
-      <Routes />
-      <h2>sujan</h2>
+      <AppRoutes />
     </>
   );
 };
 
-export default App
+export default App;
