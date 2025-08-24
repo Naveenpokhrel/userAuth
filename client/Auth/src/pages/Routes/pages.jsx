@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../Home";
 import Login from "../Login";
 import EmailVerify from "../EmailVerify";
-import { ResetPassword } from "../ResetPassword";
-
+import ResetPassword from "../../pages/ResetPassword";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
