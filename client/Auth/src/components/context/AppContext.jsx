@@ -7,8 +7,13 @@ const loginUser = async (formData) => {
     body: JSON.stringify(formData),
     credentials: "include", // ✅ very important for cookies
   });
+ 
+
+
 
   const result = await response.json();
+  localStorage.setItem("email", result.email);
+console.log("sjfnjdfn",result)
   if (!response.ok) throw new Error(result.message || "Login failed");
   return result;
 };
