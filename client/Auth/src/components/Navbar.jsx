@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { AppContent } from "./context/AppContext";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
-
+  const {userData, backendUrl} = useContext(AppContent)
   return (
     <nav className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
