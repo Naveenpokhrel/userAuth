@@ -1,21 +1,24 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+import { createContext, useState } from "react";
 
-const loginUser = async (formData) => {
-  const response = await fetch(`${API_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-    credentials: "include", // ✅ very important for cookies
-  });
- 
+export const AppContent = createContext()
 
+export const AppContentProvider = (props)=>{
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+const [isLoggedin, setIsLoggedin] = useState(false)
+const [userData, setUserData] = useState(false)
 
-  const result = await response.json();
-  localStorage.setItem("email", result.email);
-console.log("sjfnjdfn",result)
-  if (!response.ok) throw new Error(result.message || "Login failed");
-  return result;
-};
+  const value = {
+backendUrl,
+isLoggedin,
+setIsLoggedin,
+userData,
+setUserData
 
-export default loginUser;
+  }
+  return(
+    <AppContent.Provider value={value}>
+      {props.children}
+    </AppContent.Provider>
+  )
+}
