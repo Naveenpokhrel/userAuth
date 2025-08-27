@@ -1,65 +1,67 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
-import loginUser from "../components/context/AppContext";
-
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(""); setSuccess(""); setLoading(true);
-
-    try {
-      const response = await loginUser(formData);
-      setSuccess(response.message || "Login successful!");
-      console.log("Login Response:", response);
-      // Redirect to dashboard
-      window.location.href = "/dashboard";
-    } catch (err) {
-      setError(err.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [state, setState] = useState("Sign Up");
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-400 font-[Outfit,sans-serif]">
-      <img src={assets.logo} alt="Logo" className="absolute left-6 top-6 w-28 sm:w-32 cursor-pointer" />
+    <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400">
+      <img
+        src={assets.logo}
+        alt=""
+        className="absolute left-5 sm:left-20
+      top-5 w-28 sm:w-32 cursor-pointer"
+      />
+      <div className="bg-slate-900 p-10 rounded-lg shadow-lg w-full sm:w-96 text-indigo-300 text-sm">
+        <h2 className="text-3xl font-semibold text-white text-center mb-3">
+          {" "}
+          {state === "Sign Up" ? "Create  Account " : "Login "}
+        </h2>
 
-      <div className="bg-white p-10 rounded-2xl shadow-2xl w-[380px] sm:w-[420px]">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-2">Welcome Back</h2>
-        <p className="text-gray-500 text-center mb-8">Login to continue</p>
-
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-          <div className="flex flex-col text-left">
-            <label className="text-gray-700 font-medium mb-1">Email</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"
-              className="px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
-          </div>
-
-          <div className="flex flex-col text-left">
-            <label className="text-gray-700 font-medium mb-1">Password</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password"
-              className="px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
-          </div>
-
-          <button type="submit" disabled={loading} className="mt-4 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50">
-            {loading ? "Processing..." : "Login"}
-          </button>
-
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-          {success && <p className="text-green-500 text-sm mt-2">{success}</p>}
-        </form>
-
-        <p className="text-sm text-gray-600 mt-6 text-center">
-          Don’t have an account? <a href="/signup" className="text-blue-600 font-semibold cursor-pointer hover:underline">Sign up here</a>
+        <p className="text-center text-sm mb-6">
+          {state === "Sign Up"
+            ? "Create your Account "
+            : "Login to your account!"}
         </p>
+
+        <form>
+          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]">
+            <img src={assets.person_icon} alt="" />
+            <input
+              className="bg-transparent outline-none"
+              type="text"
+              placeholder="Full Name"
+              required
+            />
+          </div>
+          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]">
+            <img src={assets.mail_icon} alt="" />
+            <input
+              className="bg-transparent outline-none"
+              type="email"
+              placeholder="Email Id"
+              required
+            />
+          </div>
+          <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]">
+            <img src={assets.lock_icon} alt="" />
+            <input
+              className="bg-transparent outline-none"
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <p className="mb-4 text-indigo-500 cursor-pointer">
+            {" "}
+            Forget Password?
+          </p>
+
+          <button className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium">
+            {state}
+          </button>
+        </form>
       </div>
     </div>
   );
